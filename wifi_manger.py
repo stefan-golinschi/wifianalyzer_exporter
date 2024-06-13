@@ -36,7 +36,7 @@ class WifiManager:
                 'frequency': row[3],
                 'rate': row[4],
                 'bandwidth': row[5],
-                'signal': row[6],
+                'signal': 0 - int(row[6]),
                 'security': row[7],
                 'wpa-flags': row[8],
                 'rsn-flags': row[9],
@@ -45,16 +45,14 @@ class WifiManager:
             })
         return output
 
-    def scan_oneshot(self) -> bool:
+    def scan_oneshot(self) -> list:
         output_bytes = run_command("nmcli --terse --escape no --fields \
             BSSID,SSID,MODE,CHAN,FREQ,RATE,BANDWIDTH,SIGNAL,SECURITY,WPA-FLAGS,RSN-FLAGS,DEVICE,ACTIVE \
             device wifi \
             ")
         output_str = output_bytes.decode()
-        scan_results = self.__process_scan_results(output_str)
 
-        for result in scan_results:
-            print(result)
+        return self.__process_scan_results(output_str)
 
 
 def main():
@@ -65,7 +63,7 @@ def main():
     args = parser.parse_args()
 
     wa = WifiManager(filter_ssid=args.filter_ssid)
-    wa.scan_oneshot()
+    print(wa.scan_oneshot())
 
 
 if __name__ == '__main__':

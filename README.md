@@ -33,6 +33,6 @@ The following arguments can be passed to the exporter application:
 
 ## Grafana dashboard
 
-A grafana dashboard sample can be found in [dashboard dir](./dashboard/wifianalyzer_exporter_dashboard_simple.json).
+A grafana dashboard sample can be found [here](./dashboard/wifianalyzer_exporter_dashboard_simple.json).
 
 ![dashboard example](./dashboard/dashboard.png)
